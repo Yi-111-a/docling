@@ -273,6 +273,8 @@ class TesseractOcrCliModel(BaseOcrModel):
             self._sanitize_filename(ifilename),
             "stdout",
         ]
+        if self._safe_tessdata_path is not None:
+            cmd.extend(["--tessdata-dir", self._safe_tessdata_path])
         _log.info("command: {}".format(" ".join(cmd)))
         output = subprocess.run(
             cmd, capture_output=True, stdin=DEVNULL, check=True, shell=False
